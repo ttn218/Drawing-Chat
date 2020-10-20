@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardns">
+	<resultMap type="board" id="boardResult">
+		<result property="Board_no" column="Board_no"/>
+		<result property="Board_name" column="Board_name"/>
+		<result property="Board_pw" column="Board_pw"/>
+		<result property="Board_type" column="Board_type"/>
+		<result property="Board_content" column="Board_content"/>
+		<result property="ID" column="ID"/>
+		<result property="CreateDate" column="CreateDate"/>
+	</resultMap>
+	
+	<select id="SelectBoard" parameterType="int" resultType="board">
+		SELECT * FROM drawingchat.board where Board_no = #{Board_no}
+	</select>
+	
+	<select id="BoardList" parameterType="String" resultMap="boardResult">
+		select * from drawingchat.board where Board_type = #{Board_type}
+	</select>
+	
+	<insert id="InsertBoard" parameterType="board">
+		insert into drawingchat.board values(null,#{Board_name},#{Board_pw},#{Board_type},#{Board_content},#{ID},#{CreateDate})
+	</insert>
+	
+	<delete id="DeleteBoard" parameterType="int">
+		delete from drawingchat.board where Board_no = #{Board_no}
+	</delete>
+	<update id="UpdateBoard" parameterType="board">
+		update drawingchat.board set Board_name = #{Board_name}, Board_content = #{Board_content} where Board_no = #{Board_no}
+	</update>
+</mapper>

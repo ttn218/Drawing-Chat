@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chatmemberns">
+	<resultMap type="chat_member" id="chatmemberResult">
+		<result property="CM_seq" column="CM_seq"/>
+		<result property="Chat_no" column="Chat_no"/>
+		<result property="ID" column="ID"/>
+		<result property="Create" column="Create"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="chat_member">
+		insert into drawingchat.chat_member values(null,#{Chat_no},#{ID},#{Create})
+	</insert>
+</mapper>

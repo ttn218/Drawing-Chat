@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chatns">
+	<resultMap type="chat" id="chatResult">
+		<result property="Chat_no" column="Chat_no"/>
+		<result property="Chat_name" column="Chat_name"/>
+		<result property="Chat_pw" column="Chat_pw"/>
+		<result property="Chat_type" column="Chat_type"/>
+		<result property="CreateDate" column="CreateDate"/>
+	</resultMap>
+	<resultMap type="ChatList" id="ChatListResult">
+		<result property="Chat_no" column="Chat_no"/>
+		<result property="Chat_name" column="Chat_name"/>
+		<result property="Chat_type" column="Chat_type"/>
+		<result property="nickname" column="nickname"/>
+		<result property="CreateDate" column="CreateDate"/>
+		<result property="Chat_pw" column="Chat_pw"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="chat">
+		insert into drawingchat.chat values(#{Chat_no},#{Chat_name},#{Chat_pw},#{Chat_type},#{CreateDate})
+	</insert>
+	
+	<select id="Chat_NoMax" parameterType="String" resultType="Integer">
+		select Max(Chat_no) from drawingchat.chat where Chat_type = #{Chat_type}
+	</select>
+	
+	<select id="Select" parameterType="int" resultType="chat">
+		select * from drawingchat.chat where Chat_no = #{Chat_no}
+	</select>
+	
+	<select id="SelectList" parameterType="String" resultMap="chatResult">
+		select * from drawingchat.chat where Chat_type = #{Chat_type}
+	</select>
+	
+	<select id="SelectChatList" parameterType="String" resultMap="ChatListResult">
+		select Chat_no, Chat_name, Chat_type, nickname, CreateDate, Chat_pw from drawingchat.chat natural join drawingchat.chat_member natural join drawingchat.member where Chat_type = #{Chat_type}
+	</select>
+	
+</mapper>

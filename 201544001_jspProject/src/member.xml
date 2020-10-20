@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberns">
+	<resultMap type="member" id="memberResult">
+		<result property="ID" column="ID"/>
+		<result property="nickname" column="nickname"/>
+		<result property="name" column="name"/>
+		<result property="pw" column="pw"/>
+		<result property="tel" column="tel"/>
+		<result property="email" column="email"/>
+		<result property="addr" column="addr"/>
+		<result property="level" column="level"/>
+		<result property="reg_date" column="reg_date"/>
+	</resultMap>
+	
+	<select id="list" resultMap="memberResult">
+		select * from drawingchat.member
+	</select>
+	
+	<insert id="insert" parameterType="member">
+		insert into drawingchat.member values(#{ID},#{nickname},#{name},#{pw},#{tel},#{email},#{addr},#{level},#{reg_date})
+	</insert>
+	
+	<update id="update" parameterType="member">
+		update drawingchat.member set nickname = #{nickname}, tel = #{tel}, addr = #{addr} where ID = #{ID}
+	</update>
+	<select id="selectID" parameterType="string" resultType="member">
+		select * from drawingchat.member where ID = #{ID}
+	</select>
+	<select id="selectNick" parameterType="string" resultType="member">
+		select * from drawingchat.member where nickname = #{nickname}
+	</select> 
+	<select id="login" parameterType="member" resultType="member">
+		select * from drawingchat.member where ID = #{ID} and pw = #{pw}
+	</select>
+	<select id="GetNick" parameterType="string" resultType="string">
+		select nickname from drawingchat.member where ID = #{ID}
+	</select>
+	<delete id="Delete" parameterType="string">
+		delete from drawingchat.member where ID = #{ID}
+	</delete>
+</mapper>
